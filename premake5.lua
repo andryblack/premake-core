@@ -138,6 +138,10 @@
 		filter { "system:windows", "configurations:Release", "toolset:not mingw" }
 			flags		{ "LinkTimeOptimization" }
 
+		filter { "system:macosx", "action:gmake" }
+			buildoptions { "-mmacosx-version-min=10.9" }
+			linkoptions  { "-mmacosx-version-min=10.9" }
+
 	project "Premake5"
 		targetname  "premake5"
 		language    "C"
