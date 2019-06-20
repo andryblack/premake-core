@@ -91,6 +91,12 @@
 		end,
 	}
 
+	p.api.register {
+		name = "xcodeembededframeworks",
+		scope = "config",
+		kind = "list",
+	}
+
 
 --
 -- Decide when the full module should be loaded.
