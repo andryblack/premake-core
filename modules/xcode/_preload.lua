@@ -97,6 +97,12 @@
 		kind = "list",
 	}
 
+	p.api.register {
+		name = "xcodeweakframeworks",
+		scope = "config",
+		kind = "list",
+	}
+
 
 --
 -- Decide when the full module should be loaded.
