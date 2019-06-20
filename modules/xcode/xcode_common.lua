@@ -211,6 +211,35 @@
 		end
 	end
 
+
+--
+-- Print user configuration references contained in xcodeconfigreferences
+-- @param offset
+--    offset used by function _p
+-- @param cfg
+--    configuration
+--
+
+	function xcode.printUserConfigReferences(offset, cfg, tr, kind)
+		local referenceName
+		if kind == "project" then
+			referenceName = cfg.xcodeconfigreferenceproject
+		elseif kind == "target" then
+			referenceName = cfg.xcodeconfigreferencetarget
+		end
+		tree.traverse(tr, {
+			onleaf = function(node)
+				filename = node.name
+				if node.id and path.getextension(filename) == ".xcconfig" then
+					if filename == referenceName then
+						_p(offset, 'baseConfigurationReference = %s /* %s */;', node.id, filename)
+						return
+					end
+				end
+			end
+		}, false)
+	end
+	
 	function xcode.overrideSettings(settings, overrides)
 		if type(overrides) == 'table' then
 			for name, value in pairs(overrides) do
@@ -1204,6 +1233,7 @@
 
 		_p(2,'%s /* %s */ = {', cfg.xcode.targetid, cfg.buildcfg)
 		_p(3,'isa = XCBuildConfiguration;')
+		xcode.printUserConfigReferences(3,cfg,tr,'target')
 		_p(3,'buildSettings = {')
 		xcode.printSettingsTable(4, settings)
 		_p(3,'};')
@@ -1459,6 +1489,7 @@
 
 		_p(2,'%s /* %s */ = {', cfg.xcode.projectid, cfg.buildcfg)
 		_p(3,'isa = XCBuildConfiguration;')
+		xcode.printUserConfigReferences(3,cfg,tr,'project')
 		_p(3,'buildSettings = {')
 		xcode.printSettingsTable(4, settings)
 		_p(3,'};')
