@@ -106,6 +106,7 @@
 				if xcode.isframework(name) and not tr.frameworks.children[name] then
 					node = tree.insert(tr.frameworks, tree.new(name))
 					node.path = link
+					node.isEmbed = (cfg.xcodeembededframeworks or {})[name]
 				end
 			end
 		end
@@ -178,6 +179,7 @@
 		node.resstageid = xcode.newid(node.name, "rez")
 		node.sourcesid  = xcode.newid(node.name, "src")
 		node.fxstageid  = xcode.newid(node.name, "fxs")
+		node.efxstageid  = xcode.newid(node.name, "efs")
 
 		return tr
 	end
@@ -222,6 +224,7 @@
 		p.callArray(m.elements.project, prj)
 		xcode.PBXBuildFile(tr)
 		xcode.PBXContainerItemProxy(tr)
+		xcode.PBXCopyFilesBuildPhase(tr)
 		xcode.PBXFileReference(tr)
 		xcode.PBXFrameworksBuildPhase(tr)
 		xcode.PBXGroup(tr)
