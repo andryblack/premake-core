@@ -861,17 +861,27 @@
 		_p(2,'08FB7793FE84155DC02AAC07 /* Project object */ = {')
 		_p(3,'isa = PBXProject;')
 		local capabilities = tr.project.xcodesystemcapabilities
-		if not table.isempty(capabilities) then
-			local keys = table.keys(capabilities)
-			table.sort(keys)
+		local attributes = tr.project.xcodeattributes
+		if not table.isempty(capabilities) or not table.isempty(attributes) then
 			_p(3, 'attributes = {')
 			_p(4, 'TargetAttributes = {')
 			_p(5, '%s = {', tr.project.xcode.projectnode.targetid)
-			_p(6, 'SystemCapabilities = {')
-			for _, key in pairs(keys) do
-				_p(7, '%s = {', key)
-				_p(8, 'enabled = %d;', iif(capabilities[key], 1, 0))
-				_p(7, '};')
+			if not table.isempty(capabilities) then
+				local keys = table.keys(capabilities)
+				table.sort(keys)
+				_p(6, 'SystemCapabilities = {')
+				for _, key in pairs(keys) do
+					_p(7, '%s = {', key)
+					_p(8, 'enabled = %d;', iif(capabilities[key], 1, 0))
+					_p(7, '};')
+				end
+			end
+			if not table.isempty(attributes) then
+				local keys = table.keys(attributes)
+				table.sort(keys)
+				for _, key in pairs(keys) do
+					_p(6, '%s = %s;', key, attributes[key])
+				end
 			end
 			_p(6, '};')
 			_p(5, '};')

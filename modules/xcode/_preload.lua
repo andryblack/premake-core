@@ -48,6 +48,13 @@
 	}
 
 	p.api.register {
+		name = "xcodeattributes",
+		scope = "project",
+		kind = "key-string"
+	}
+
+
+	p.api.register {
 		name = "iosfamily",
 		scope = "config",
 		kind = "string",
