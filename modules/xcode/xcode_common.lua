@@ -31,6 +31,7 @@
 			[".cxx"] = "Sources",
 			[".dylib"] = "Frameworks",
 			[".framework"] = "Frameworks",
+			[".xcframework"] = "Frameworks",
 			[".m"] = "Sources",
 			[".mm"] = "Sources",
 			[".strings"] = "Resources",
@@ -127,6 +128,7 @@
 			[".cxx"]       = "sourcecode.cpp.cpp",
 			[".S"]         = "sourcecode.asm.asm",
 			[".framework"] = "wrapper.framework",
+			[".xcframework"] = "wrapper.xcframework",
 			[".gif"]       = "image.gif",
 			[".h"]         = "sourcecode.c.h",
 			[".html"]      = "text.html",
@@ -345,7 +347,7 @@
 --
 
 	function xcode.isframework(fname)
-		return (path.getextension(fname) == ".framework")
+		return (path.getextension(fname) == ".framework") or (path.getextension(fname) == ".xcframework")
 	end
 
 
