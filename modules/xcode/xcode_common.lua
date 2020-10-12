@@ -146,6 +146,7 @@
 			[".xcassets"]  = "folder.assetcatalog",
 			[".swift"]     = "sourcecode.swift",
 			[".metal"]     = "sourcecode.metal",
+			[".entitlements"]  = "text.plist.entitlements",
 		}
 		return types[path.getextension(node.path)] or "text"
 	end
