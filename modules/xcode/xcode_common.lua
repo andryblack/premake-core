@@ -146,6 +146,7 @@
 			[".bmp"]       = "image.bmp",
 			[".wav"]       = "audio.wav",
 			[".xcassets"]  = "folder.assetcatalog",
+			[".entitlements"]  = "text.plist.entitlements",
 
 		}
 		return types[path.getextension(node.path)] or "text"
